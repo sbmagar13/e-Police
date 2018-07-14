@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/delta.css' %}"/>
+  </head>
+
+  <body>
+
+    <div class="nav">
+
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+            <div class="register-btn"><a href="{% url 'lodge_new' %}">Lodge</a></div>
+        </ul>
+    </div>
+
+    <div class="header">
+
+        <div class="no-left-padding col-lg-9">
+
+            <img src="{% static 'images/police.jpg' %}"/>
+
+        </div>
+
+        
+
+  </body>
+
+
+
+</html>

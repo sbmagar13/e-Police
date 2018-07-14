@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+	{% block title %}<title>Online FIR and General Diary | User Profile</title>{% endblock %}
+	
+{% load dict_helper %}
+{% block content %}
+<div class="content">
+	
+	<div class="heading">
+		<h1>Recently filed FIRs and GDs</h1>
+	</div>
+
+	<hr id="divider">
+	<div class="list">
+		<ul>
+			{% for i in report %}
+                <li>
+                    <div>
+                        <p>{{ forloop.counter }}. Subject : {{report|dict_get:i|get_val:'Subject'}} ,Date: {{report|dict_get:i|get_val:'pub_date'}}</p>
+                        <p>Suspect: {{report|dict_get:i|get_val:'Suspect'}} ,Witness: {{report|dict_get:i|get_val:'Witness'}}</p>   
+                        <p>{{report|dict_get:i|get_val:'detail'}}</p>
+                    </div>
+                </li>
+                <br>
+            {% endfor %}
+		</ul>
+	</div>
+	
+</div>
+{% endblock %}

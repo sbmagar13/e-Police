@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    {% load staticfiles %}
+    
+	<link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}"/>
+	
+	<script src="{% static 'js/jquery.min.js' %}"> </script> 
+	<script src="{% static 'js/bootstrap.min.js' %}"> </script> 
+	
+	{% block css %} {% endblock %} 
+    {% block js %} {% endblock %}
+    {% block title %} {% endblock %}
+</head>
+<body>
+
+<div class="navigator">
+	<ul>
+		<li style="float:left;">Online FIR and GD Portal</li>
+		<li id="size"><a href="/user/logout">Logout<a></li>
+		<li id="size">|</li>
+		<li id="size">Username</li>
+	</ul>
+</div>
+
+
+
+{% block content %} {% endblock %}
+
+</body>
+</html>

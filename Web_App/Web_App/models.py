@@ -13,7 +13,7 @@ class general_diary(models.Model):
     idType_1 = models.CharField(max_length=10)
     idType_1_value = models.CharField(max_length=15)
     idType_2 = models.CharField(max_length=20)
-    idType_2_value = models.CharField(max_length=15)
+mosalah48
 
     StationCode = models.ForeignKey(Stationdata)
     Subject = models.CharField(max_length=200)

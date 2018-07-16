@@ -1,4 +1,4 @@
-#!/home/sbmagar/Desktop/E-Police/fir/bin/python
+#!/home/bijaya/Desktop/e-Police/fir/bin/python2
 from django.core import management
 
 if __name__ == "__main__":

@@ -52,8 +52,10 @@
                     {% for i in Fir %}
                     <li>
                         <div>
-                            <p>Subject : {{i.Subject}} ,Date: {{i.pub_date}}</p>
-                            <p>Suspect: {{i.Suspect}} ,Witness: {{i.Witness}}</p>   
+                            <p> <br> Subject : {{i.Subject}} <br> <br>
+                                Date: {{i.pub_date}}</p> <br>
+                            <p>Suspect: {{i.Suspect}} ,<br> <br>
+                                Witness: {{i.Witness}}</p><br>
                             <p>{{i.detail|striptags}}</p>
                         </div>
                     </li>

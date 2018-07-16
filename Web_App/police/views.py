@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-# from Web_App.models import Fir,general_diary
+from Web_App.models import Fir,general_diary
 from django.contrib.auth.models import User
 from functools import wraps
 from django.http import HttpResponse
@@ -59,8 +59,6 @@ def login_user(request):
             return HttpResponse("Not Authorized")
     else:
 		return redirect('police_login')
-
-
 
 @login_required(login_url='/police/login')
 def logout_user(request):

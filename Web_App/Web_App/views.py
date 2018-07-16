@@ -51,16 +51,16 @@ def get_OTP():
         if cache.get(newOTP)==None:
             return newOTP
 
-def send_sms(number,template_type,report_type=None,**kargs):
+def send_sms(number, template_type, report_type=None,**kargs):
     message = templates[template_type]
     #set_trace()
     otp = None
-    if template_type=='OTP':
+    if template_type =='OTP':
         otp = get_OTP()
-        cache.set(otp,kargs['ref_id'],300)
-        cache.set(kargs['ref_id'],otp,300)
+        cache.set(otp,kargs['ref_id'], 300)
+        cache.set(kargs['ref_id'],otp, 300)
         message = message.format(otp=otp )
-    elif template_type=='VERIFIED':
+    elif template_type =='VERIFIED':
         message = message.format(report_type=report_type, ref_id=kargs['ref_id'])
     response = unirest.get(
         url = "https://riddhi_raval-site2sms-v1.p.mashape.com/localhost:49219/forexproj/smspg.aspx",
@@ -93,7 +93,7 @@ def register_report(request):
     mobile = request.POST.get('mob')
     email = request.POST.get('email')
     address = request.POST.get('address')
-    dob = request.POST.get('dob')
+    DOB = request.POST.get('dob')
 
     # User id proof 
     idtype1 = request.POST.get('type1')
@@ -130,8 +130,8 @@ def register_report(request):
     except Exception as e:
         print e
    
-    date_of_birth = datetime.strptime(dob,'%Y/%m/%d')
-    date_of_birth = timezone.make_aware(date_of_birth,timezone='none')
+    date_of_birth = datetime.strptime(DOB, '%d/%m/%Y')
+    date_of_birth = timezone.make_aware(date_of_birth, timezone='none')
     ref_id = uuid.uuid4()
     if id1_data is not None and id2_data is not None:
         if id2_data.firstname == firstname and id1_data.firstname == firstname:
@@ -152,8 +152,8 @@ def register_report(request):
     except Stationdata.DoesNotExist:
         StationCode='00000000'
     
-    time = datetime.strptime(date_string,'%Y/%m/%d %H:%M')
-    time = timezone.make_aware(time,timezone=None)
+    time = datetime.strptime(date_string, '%a %b %d %H:%M:%S %Y')
+    time = timezone.make_aware(time, timezone=None)
     print time
     if optionsRadios == "GD":
         b = general_diary(ref_id=ref_id, firstname=firstname, lastname=lastname , mobile=mobile, email=email,address=address, 
@@ -213,13 +213,13 @@ def resend(request):
         else:
             report_obj = Fir.objects.get(ref_id=lookup_obj.ref_id)
         
-        otp = send_sms(number=report_obj.mobile, template_type='OTP', report_type=lookup_obj.type, ref_id=lookup_obj.ref_id)
+        otp = send_sms(number=report_obj.mobile,template_type='OTP',report_type=lookup_obj.type,ref_id=lookup_obj.ref_id)
         return HttpResponse('success')
     except Exception as e:
         print e
 
 
-
+# noinspection PyUnreachableCode
 def success(request):
     #Retrieve data or whatever you need
     data = request.session['reference'].split('__')
@@ -238,21 +238,20 @@ def success(request):
             }
         )
     body = templates['EMAIL'].format(ref_id=report_obj.ref_id,report_type=data[1],fname=report_obj.firstname)
-    email = EmailMessage(subject='Report Confimation', body=body, from_email='sbmagar.sbm99@gmail.com',
+    email = EmailMessage(subject='Report Confimation', body=body, from_email='subho.prp@gmail.com',
             to=[report_obj.email],attachments=[('Report.pdf',pdf,'application/pdf')])
     
-    email.attach('Report.pdf',pdf,'application/pdf')
+    #email.attach('Report.pdf',pdf,'application/pdf')
     email.send()
     return response
 
-
     """
-        return render(request,'users/pdf_mould.html',{
-                    'pagesize':'A4',
-                    'report': report_obj,
-                    'address_list' : address_list,
-                })
-        """
+    return render(request,'users/pdf_mould.html',{
+                'pagesize':'A4',
+                'report': report_obj,
+                'address_list' : address_list,
+            })
+    """
 
 def render_to_pdf(template_src,context_dict):
     template = get_template(template_src)
